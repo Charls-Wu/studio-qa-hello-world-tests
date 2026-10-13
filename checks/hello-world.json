@@ -1,0 +1,1 @@
+{"id":"stdout-greeting","version":1,"requirement":"Initial baseline greeting","command":["node","main.mjs"],"expectedStdout":"Hello World\n","expectedExitCode":0,"humanAcceptanceRequired":true}

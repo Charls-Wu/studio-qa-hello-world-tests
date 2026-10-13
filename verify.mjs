@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+const applicationDir = process.argv[2];
+if (!applicationDir) throw new Error('Usage: node verify.mjs <application-directory>');
+const standard = JSON.parse(readFileSync(fileURLToPath(new URL('./checks/hello-world.json', import.meta.url)), 'utf8'));
+const result = spawnSync(standard.command[0], standard.command.slice(1), { cwd: applicationDir, encoding: 'utf8' });
+assert.equal(result.status, standard.expectedExitCode);
+assert.equal(result.stdout, standard.expectedStdout);
+console.log(JSON.stringify({ checkId: standard.id, standardVersion: standard.version, passed: true, stdout: result.stdout }));
