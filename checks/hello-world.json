@@ -1,1 +1,1 @@
-{"id":"stdout-greeting","version":1,"requirement":"Initial baseline greeting","command":["node","main.mjs"],"expectedStdout":"Hello World\n","expectedExitCode":0,"humanAcceptanceRequired":true}
+{"id":"stdout-greeting","version":2,"requirement":"PM-4: output Hello World 2 with one trailing LF","requirementIssue":"PM-4","command":["node","main.mjs"],"expectedStdout":"Hello World 2\n","expectedExitCode":0,"humanAcceptanceRequired":true}
