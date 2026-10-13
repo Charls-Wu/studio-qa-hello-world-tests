@@ -1,0 +1,38 @@
+name: Greeting cases
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  greeting-cases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tests
+        uses: actions/checkout@v4
+
+      - name: Check out approved application commit
+        uses: actions/checkout@v4
+        with:
+          repository: Charls-Wu/studio-qa-hello-world
+          ref: 1417b67f803300dfd6849ba227d63ce5dc91cf95
+          path: application
+
+      - name: Verify application commit
+        run: |
+          actual_sha=$(git -C application rev-parse HEAD)
+          echo "Application commit: $actual_sha"
+          test "$actual_sha" = "1417b67f803300dfd6849ba227d63ce5dc91cf95"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Check exact stdout bytes
+        run: node verify.mjs application greeting-stdout-v2
+
+      - name: Check exit code zero
+        run: node verify.mjs application greeting-exit-zero
